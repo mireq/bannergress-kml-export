@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Bannergress KML Exporter
 // @namespace    https://github.com/erikchristiansson/im-kml-export/
-// @version      0.1.20221216
+// @version      0.1.20230102
 // @description  Export KML files of mission paths, for import into Google MyMaps
 // @author       Erik Christiansson, Sajjen
 // @match        https://bannergress.com/banner/*
@@ -29,7 +29,7 @@ function export_kml() {
 
     var url = 'https://api.bannergress.com/bnrs/' + banner_id;
     $.getJSON(url, function(data) {
-        var mosaic_name = document.querySelector("div.banner-info-with-map > div.banner-info.banner-info-left-pane-info > div > div > div.banner-card.list-style-done > div.banner-card-title").textContent;
+        var mosaic_name = document.querySelector("#root > section > section > div > div > div > div.banner-info-with-map > div.banner-info.banner-info-left-pane-info > div > div > div.banner-card.list-style-done > div.banner-card-title").textContent;
 
         var kml = `<?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2">
