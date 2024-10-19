@@ -34,8 +34,7 @@ function export_kml() {
         var kml = `<?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2">
   <Document>
-    <name>`;
-        kml = kml + mosaic_name + `</name>
+    <name>` + mosaic_name + `</name>
     <Style id="line-7CB342-2000-normal">
       <LineStyle>
         <color>ff42b37c</color>
@@ -57,24 +56,29 @@ function export_kml() {
         <key>highlight</key>
         <styleUrl>#line-7CB342-2000-highlight</styleUrl>
       </Pair>
-    </StyleMap>
+    </StyleMap>`;
+
+        $.each(data.missions, function(index, mission) {
+            var mission_name = mission.title || 'Mission ' + (index + 1);
+            kml += `
     <Placemark>
-      <name>`;
-        kml = kml + mosaic_name + `</name>
-      <description>`;
-        kml = kml + window.location.href + `</description>
+      <name>` + mission_name + `</name>
+      <description>` + window.location.href + `</description>
       <styleUrl>#line-7CB342-2000</styleUrl>
       <LineString>
         <tessellate>1</tessellate>
         <coordinates>`;
-        $.each(data.missions, function(index, mission) {
+
             $.each(mission.steps, function(index, step) {
-                kml = kml + step.poi.longitude + "," + step.poi.latitude + ",0\n";
+                kml += step.poi.longitude + "," + step.poi.latitude + ",0\n";
             });
-        });
-        kml = kml + `        </coordinates>
+
+            kml += `        </coordinates>
       </LineString>
-    </Placemark>
+    </Placemark>`;
+        });
+
+        kml += `
   </Document>
 </kml>`;
         save(mosaic_name + ".kml", kml);
