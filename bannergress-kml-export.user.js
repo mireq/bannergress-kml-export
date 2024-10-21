@@ -58,7 +58,7 @@ function export_kml() {
       </Pair>
     </StyleMap>`;
 
-        $.each(data.missions, function(index, mission) {
+        data.missions.forEach((mission, index) => {
             var mission_name = mission.title || 'Mission ' + (index + 1);
             kml += `
     <Placemark>
@@ -69,7 +69,7 @@ function export_kml() {
         <tessellate>1</tessellate>
         <coordinates>`;
 
-            $.each(mission.steps, function(index, step) {
+            mission.steps.forEach(step => {
                 kml += step.poi.longitude + "," + step.poi.latitude + ",0\n";
             });
 
