@@ -59,7 +59,7 @@ function export_kml() {
     </StyleMap>`;
 
         data.missions.forEach((mission, index) => {
-            var mission_name = mission.title || 'Mission ' + (index + 1);
+            var mission_name = mission.title ? (index + 1) + '. ' + mission.title : 'Mission ' + (index + 1);
             kml += `
     <Placemark>
       <name>` + mission_name + `</name>
